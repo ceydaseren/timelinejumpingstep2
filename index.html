@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Step 2 — Identify Habits, Patterns & Beliefs | Timeline Jumpers</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cyan: #1cd6e7;
+    --magenta: #f62bd1;
+    --purple: #8051c8;
+    --amber: #f4a749;
+    --bg: #0a0a1f;
+    --mid: #15122e;
+    --card: rgba(30,26,62,0.6);
+    --border: rgba(255,255,255,0.08);
+    --glow-border: rgba(28,214,231,0.35);
+    --text: #f8f5ff;
+    --text-sec: rgba(248,245,255,0.72);
+    --gradient: linear-gradient(135deg, #1cd6e7, #8051c8, #f62bd1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* ── STARS ── */
+  .stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    animation: twinkle var(--dur, 3s) ease-in-out infinite var(--delay, 0s);
+    opacity: 0;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.8); }
+    50% { opacity: var(--op, 0.6); transform: scale(1); }
+  }
+
+  /* ── COSMIC BG GLOWS ── */
+  .cosmic-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .cosmic-bg::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    left: -10%;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(ellipse, rgba(28,214,231,0.07) 0%, transparent 70%);
+  }
+
+  .cosmic-bg::after {
+    content: '';
+    position: absolute;
+    bottom: -10%;
+    right: -10%;
+    width: 55%;
+    height: 55%;
+    background: radial-gradient(ellipse, rgba(246,43,209,0.07) 0%, transparent 70%);
+  }
+
+  .cosmic-mid {
+    position: fixed;
+    top: 40%;
+    left: 30%;
+    width: 50%;
+    height: 50%;
+    background: radial-gradient(ellipse, rgba(128,81,200,0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── CURSOR TRAIL ── */
+  .cursor-dot {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    animation: dotFade 0.6s ease forwards;
+  }
+
+  @keyframes dotFade {
+    0% { opacity: 0.9; transform: translate(-50%,-50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%,-50%) scale(0.2); }
+  }
+
+  .cursor-sparkle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    font-size: 12px;
+    transform: translate(-50%, -50%);
+    animation: sparkleFade 0.8s ease forwards;
+  }
+
+  @keyframes sparkleFade {
+    0% { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%,-120%) scale(0.5); }
+  }
+
+  /* ── LAYOUT ── */
+  .page-wrap {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── INTENTION BLOCK ── */
+  .intention-block {
+    width: 100%;
+    padding: 32px 40px;
+    text-align: center;
+    position: relative;
+    background: var(--mid);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .intention-block::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gradient);
+  }
+
+  .phase-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 14px;
+    text-shadow: 0 0 12px rgba(28,214,231,0.7), 0 0 24px rgba(28,214,231,0.3);
+  }
+
+  .intention-statement {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: clamp(16px, 3vw, 20px);
+    color: var(--text);
+    line-height: 1.4;
+    max-width: 620px;
+    margin: 0 auto;
+  }
+
+  .intention-subtext {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 9px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: rgba(248,245,255,0.3);
+    margin-top: 14px;
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-section {
+    background: var(--mid);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 40px;
+  }
+
+  .progress-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .progress-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-sec);
+  }
+
+  .progress-count {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 11px;
+    color: var(--text-sec);
+  }
+
+  .progress-track {
+    height: 2px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--gradient);
+    border-radius: 2px;
+    transition: width 0.6s ease;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main-content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* ── STEP HEADER ── */
+  .step-header {
+    padding: 52px 0 36px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.1s forwards;
+  }
+
+  .step-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-sec);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .step-number-badge-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--cyan);
+    color: #0a0a1f;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 30px;
+    flex-shrink: 0;
+  }
+
+  .step-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: clamp(28px, 5vw, 40px);
+    color: var(--text);
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  .step-title .gradient-word {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-style: italic;
+  }
+
+  .step-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    color: var(--text-sec);
+    letter-spacing: 0.02em;
+    line-height: 1.7;
+  }
+
+  /* ── SECTION BLOCKS ── */
+  .section-block {
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  .section-block:nth-child(2) { animation-delay: 0.2s; }
+  .section-block:nth-child(3) { animation-delay: 0.3s; }
+  .section-block:nth-child(4) { animation-delay: 0.4s; }
+  .section-block:nth-child(5) { animation-delay: 0.5s; }
+
+  .section-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 9px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 16px;
+  }
+
+  /* ── TEACHING COPY ── */
+  .teaching-copy p {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--text-sec);
+    margin-bottom: 16px;
+  }
+
+  .teaching-copy p:last-child { margin-bottom: 0; }
+
+  /* ── SOMATIC BLOCK ── */
+  .somatic-block {
+    background: var(--card);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glow-border);
+    border-radius: 16px;
+    padding: 36px 40px 32px;
+    margin-bottom: 40px;
+    text-align: center;
+    position: relative;
+    transition: box-shadow 0.3s;
+  }
+
+  .somatic-block:hover {
+    box-shadow: 0 0 28px rgba(28,214,231,0.1);
+  }
+
+  .breathing-ring {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .breathing-ring span {
+    position: absolute;
+    border-radius: 50%;
+    border: 1.5px solid rgba(28,214,231,0.5);
+    animation: breathe 4s ease-in-out infinite;
+  }
+
+  .breathing-ring span:nth-child(1) { width: 24px; height: 24px; animation-delay: 0s; border-color: rgba(28,214,231,0.7); }
+  .breathing-ring span:nth-child(2) { width: 44px; height: 44px; animation-delay: 0.4s; border-color: rgba(28,214,231,0.4); }
+  .breathing-ring span:nth-child(3) { width: 64px; height: 64px; animation-delay: 0.8s; border-color: rgba(28,214,231,0.15); }
+
+  @keyframes breathe {
+    0%, 100% { transform: scale(0.92); opacity: 0.6; }
+    50% { transform: scale(1.06); opacity: 1; }
+  }
+
+  .somatic-heading {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 14px;
+  }
+
+  .somatic-block p {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text-sec);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* ── LAYER NAV ── */
+  .layer-nav {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .layer-tab {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 10px 16px 12px;
+    border: none;
+    background: none;
+    color: var(--text-sec);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .layer-tab.active {
+    color: var(--cyan);
+    border-bottom-color: var(--cyan);
+  }
+
+  .layer-tab:hover:not(.active) { color: var(--text); }
+
+  .reflection-layer { display: none; }
+  .reflection-layer.active { display: block; }
+
+  /* ── REFLECTION CARD ── */
+  .reflection-card {
+    background: var(--card);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--cyan);
+    border-radius: 0 12px 12px 0;
+    padding: 28px 28px 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 0 18px rgba(28,214,231,0.08), 0 0 40px rgba(28,214,231,0.04);
+    transition: box-shadow 0.3s;
+  }
+
+  .reflection-card:hover {
+    box-shadow: 0 0 24px rgba(28,214,231,0.18), 0 0 60px rgba(28,214,231,0.08);
+  }
+
+  .reflection-prompt {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text-sec);
+    margin-bottom: 18px;
+  }
+
+  .starter-phrase {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--cyan);
+    letter-spacing: 0.04em;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 120px;
+    background: rgba(10,10,31,0.6);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--cyan);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text);
+    resize: vertical;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+
+  textarea:focus {
+    border-top-color: var(--cyan);
+    box-shadow: 0 0 0 3px rgba(28,214,231,0.12), inset 0 0 20px rgba(28,214,231,0.04);
+  }
+
+  textarea::placeholder { color: rgba(248,245,255,0.25); font-weight: 300; }
+
+  .save-notice {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    color: rgba(248,245,255,0.35);
+    letter-spacing: 0.06em;
+    margin-top: 10px;
+  }
+
+  /* ── LAYER CONTROLS ── */
+  .layer-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .btn-ghost {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.6);
+    color: rgba(255,255,255,0.9);
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-ghost:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: var(--cyan);
+    color: var(--cyan);
+  }
+
+  .btn-primary {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    background: var(--gradient);
+    border: none;
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  .btn-done {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    background: var(--gradient);
+    border: none;
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+    margin-left: auto;
+  }
+
+  .btn-done:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  .step-complete-text {
+    display: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    align-items: center;
+    gap: 7px;
+    margin-left: auto;
+  }
+
+  /* ── EXPORT ── */
+  .export-section {
+    margin-top: 48px;
+    background: var(--card);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.8s forwards;
+  }
+
+  .save-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .save-description {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    color: var(--text-sec);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .btn-export-dark {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    background: var(--gradient);
+    border: none;
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-export-dark:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  /* ── TOAST ── */
+  .copy-toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: var(--mid);
+    border: 1px solid var(--glow-border);
+    color: var(--cyan);
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 12px 24px;
+    border-radius: 30px;
+    opacity: 0;
+    transition: all 0.3s;
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  .copy-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .copyright {
+    text-align: center;
+    padding: 32px 24px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: rgba(248,245,255,0.25);
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 600px) {
+    .intention-block { padding: 24px 20px; }
+    .progress-section { padding: 14px 20px; }
+    .step-header { padding: 36px 0 24px; }
+    .layer-controls { flex-direction: column; gap: 12px; }
+    .layer-controls .btn-ghost,
+    .layer-controls .btn-primary,
+    .layer-controls .btn-done { width: 100%; text-align: center; justify-content: center; }
+    .step-complete-text { margin-left: 0; }
+    .export-section { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- STARS -->
+<div class="stars" id="stars"></div>
+<div class="cosmic-bg"></div>
+<div class="cosmic-mid"></div>
+
+<div class="page-wrap">
+
+  <!-- INTENTION BLOCK -->
+  <div class="intention-block">
+    <div class="phase-eyebrow">Selection Phase · Step 2 of 7</div>
+    <div class="intention-statement">I am now clearly seeing what has kept me anchored, and I release it with full awareness.</div>
+    <div class="intention-subtext">Set this intention before you begin</div>
+  </div>
+
+  <!-- PROGRESS BAR -->
+  <div class="progress-section">
+    <div class="progress-inner">
+      <div class="progress-meta">
+        <span class="progress-label">Selection Phase</span>
+        <span class="progress-count">Step 2 of 7</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" style="width: 28.5%"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+
+    <!-- STEP HEADER -->
+    <div class="step-header">
+      <div class="step-eyebrow">
+        <span class="step-number-badge-pill">Step 2</span>
+        Selection Phase
+      </div>
+      <h1 class="step-title"><span class="gradient-word">Identify</span> Habits, Patterns &amp; Beliefs</h1>
+      <p class="step-subtitle">Naming what has been running beneath the surface, so it no longer runs you.</p>
+    </div>
+
+    <!-- TEACHING COPY -->
+    <div class="section-block teaching-copy">
+      <div class="section-label">The Teaching</div>
+      <p>In Step 1 you acknowledged the reality you want to move away from. Here, you go one layer deeper: the habits, patterns, and beliefs that have been holding that old reality in place. These are the invisible anchors. Until you name them, they work on you quietly.</p>
+      <p>Your emotions are information. When something happens in your day and a feeling arises that does not feel good, there is a thought underneath it. That thought is often a belief running on repeat, things like "I always fail at this" or "I am not good enough." Your reality obeys what you tell yourself most consistently.</p>
+      <p>Awareness is the first act of change. You cannot release what you have not yet seen. This step asks you to look clearly, without judgment, at the three layers that shape your current experience: what you do automatically, what you tell yourself, and the cycles you keep returning to.</p>
+    </div>
+
+    <div class="section-block somatic-block">
+      <div class="breathing-ring">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="somatic-heading">Before You Write</div>
+      <p>Before you begin writing, take one slow breath and place a hand on your chest. Notice any tightness or heaviness that arises as you think about what you are about to name. You do not need to fix anything right now. You are simply becoming a witness to yourself.</p>
+    </div>
+
+    <!-- REFLECTION -->
+    <div class="section-block">
+      <div class="section-label">Your Reflection</div>
+
+      <div class="layer-nav">
+        <button class="layer-tab active" data-layer="habits" onclick="switchLayer('habits')">Habits</button>
+        <button class="layer-tab" data-layer="beliefs" onclick="switchLayer('beliefs')">Beliefs</button>
+        <button class="layer-tab" data-layer="patterns" onclick="switchLayer('patterns')">Patterns</button>
+      </div>
+
+      <!-- HABITS -->
+      <div class="reflection-layer active" id="layer-habits">
+        <div class="reflection-card">
+          <p class="reflection-prompt">Look at the life you have been living. Which habits have kept you anchored to the reality you named in Step 1, the ones you have maybe even tried to break before, but keep returning to? These do not need to be a long list. Focus on the ones that matter most.</p>
+          <span class="starter-phrase">I am no longer a person who...</span>
+          <textarea id="ta-habits" placeholder="Write your habits here. Let it be honest and specific, not a perfect list, just a true one." oninput="autosave('habits')"></textarea>
+          <div class="save-notice">This page does not save your responses. Save when done or transfer to your favourite journal.</div>
+        </div>
+        <div class="layer-controls">
+          <div></div>
+          <button class="btn-primary" onclick="switchLayer('beliefs')">Beliefs →</button>
+        </div>
+      </div>
+
+      <!-- BELIEFS -->
+      <div class="reflection-layer" id="layer-beliefs">
+        <div class="reflection-card">
+          <p class="reflection-prompt">What does the mind chatter say on repeat? Notice the thoughts that surface when something in your day goes wrong, the quiet verdict you deliver about yourself in those moments. The most important opinion you hold is the one you have of yourself.</p>
+          <span class="starter-phrase">The beliefs I am ready to release are...</span>
+          <textarea id="ta-beliefs" placeholder="Write what you tell yourself. The thoughts that come up automatically. The background narration you have heard so many times you stopped noticing it." oninput="autosave('beliefs')"></textarea>
+          <div class="save-notice">This page does not save your responses. Save when done or transfer to your favourite journal.</div>
+        </div>
+        <div class="layer-controls">
+          <button class="btn-ghost" onclick="switchLayer('habits')">← Habits</button>
+          <button class="btn-primary" onclick="switchLayer('patterns')">Patterns →</button>
+        </div>
+      </div>
+
+      <!-- PATTERNS -->
+      <div class="reflection-layer" id="layer-patterns">
+        <div class="reflection-card">
+          <p class="reflection-prompt">A pattern is different from a habit. A habit is something you do automatically, while a pattern is a cycle of behavior or relating that carries emotional weight and keeps recurring even when you recognize it. Cycles of relationships, of giving away your power, of self-sabotage at the edge of something good. What patterns are you ready to identify?</p>
+          <span class="starter-phrase">I am a person who is no longer going to repeat the pattern of...</span>
+          <textarea id="ta-patterns" placeholder="Write the cycles you recognize. The ones that carry emotional weight. This is not about blame. It is about seeing clearly so you can choose differently." oninput="autosave('patterns')"></textarea>
+          <div class="save-notice">This page does not save your responses. Save when done or transfer to your favourite journal.</div>
+        </div>
+        <div class="layer-controls">
+          <button class="btn-ghost" onclick="switchLayer('beliefs')">← Beliefs</button>
+          <button class="btn-done" id="done-patterns" onclick="markDone()">Done</button>
+          <span class="step-complete-text" id="step-complete-text">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Step Complete
+          </span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- EXPORT -->
+    <div class="export-section">
+      <h3 class="save-title">Save Your Work</h3>
+      <p class="save-description">Your responses are not saved automatically. Click below to copy them, then paste into your notes app on your phone or computer.</p>
+      <button class="btn-export-dark" onclick="copyResponses()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Copy My Responses
+      </button>
+    </div>
+
+  </div>
+
+  <div class="copyright">© 2026 Ceyda Seren. All rights reserved.</div>
+
+</div>
+
+<div class="copy-toast" id="toast">Responses copied</div>
+
+<script>
+  // ── STARS ──
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 120; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2 + 0.5;
+    s.style.cssText = `
+      width:${size}px; height:${size}px;
+      top:${Math.random()*100}%;
+      left:${Math.random()*100}%;
+      --dur:${2+Math.random()*4}s;
+      --delay:${Math.random()*4}s;
+      --op:${0.3+Math.random()*0.6};
+    `;
+    starsEl.appendChild(s);
+  }
+
+  // ── CURSOR TRAIL ──
+  const colors = ['#1cd6e7','#8051c8','#f62bd1','#f4a749'];
+  let moveCount = 0;
+  document.addEventListener('mousemove', e => {
+    moveCount++;
+    const dot = document.createElement('div');
+    dot.className = 'cursor-dot';
+    const size = 4 + Math.random() * 4;
+    const color = colors[Math.floor(Math.random()*colors.length)];
+    dot.style.cssText = `left:${e.clientX}px;top:${e.clientY}px;width:${size}px;height:${size}px;background:${color};box-shadow:0 0 6px ${color};`;
+    document.body.appendChild(dot);
+    setTimeout(() => dot.remove(), 600);
+
+    if (moveCount % 15 === 0) {
+      const spark = document.createElement('div');
+      spark.className = 'cursor-sparkle';
+      spark.textContent = '✦';
+      spark.style.cssText = `left:${e.clientX}px;top:${e.clientY}px;color:${color};`;
+      document.body.appendChild(spark);
+      setTimeout(() => spark.remove(), 800);
+    }
+  });
+
+  // ── SESSION STORAGE ──
+  const keys = ['habits', 'beliefs', 'patterns'];
+
+  function autosave(key) {
+    sessionStorage.setItem('tj_step2_' + key, document.getElementById('ta-' + key).value);
+  }
+
+  function loadSaved() {
+    keys.forEach(key => {
+      const saved = sessionStorage.getItem('tj_step2_' + key);
+      if (saved) document.getElementById('ta-' + key).value = saved;
+    });
+    sessionStorage.removeItem('tj_step2_patterns_complete');
+  }
+
+  // ── LAYER SWITCHING ──
+  function switchLayer(layerId) {
+    document.querySelectorAll('.reflection-layer').forEach(l => l.classList.remove('active'));
+    document.querySelectorAll('.layer-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('layer-' + layerId).classList.add('active');
+    document.querySelector('[data-layer=' + layerId + ']').classList.add('active');
+  }
+
+  // ── DONE ──
+  function markDone() {
+    document.getElementById('done-patterns').style.display = 'none';
+    document.getElementById('step-complete-text').style.display = 'inline-flex';
+    sessionStorage.setItem('tj_step2_patterns_complete', 'true');
+  }
+
+  // ── COPY ──
+  function copyResponses() {
+    const habits = document.getElementById('ta-habits').value.trim();
+    const beliefs = document.getElementById('ta-beliefs').value.trim();
+    const patterns = document.getElementById('ta-patterns').value.trim();
+
+    const compiled = [
+      'TIMELINE JUMPERS — Step 2: Identify Habits, Patterns & Beliefs',
+      '-'.repeat(50),
+      '',
+      'HABITS',
+      'I am no longer a person who...',
+      habits || '(not yet written)',
+      '',
+      'BELIEFS',
+      'The beliefs I am ready to release are...',
+      beliefs || '(not yet written)',
+      '',
+      'PATTERNS',
+      'I am a person who is no longer going to repeat the pattern of...',
+      patterns || '(not yet written)',
+    ].join('\n');
+
+    const el = document.createElement('textarea');
+    el.value = compiled;
+    el.style.position = 'fixed';
+    el.style.opacity = '0';
+    document.body.appendChild(el);
+    el.focus();
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2400);
+  }
+
+  loadSaved();
+</script>
+
+</body>
+</html>
