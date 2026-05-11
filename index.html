@@ -892,7 +892,8 @@
     document.querySelectorAll('.layer-tab').forEach(t => t.classList.remove('active'));
     document.getElementById('layer-' + layerId).classList.add('active');
     document.querySelector('[data-layer=' + layerId + ']').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const activeLayer = document.getElementById('layer-' + layerId);
+    if (activeLayer) activeLayer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
   // ── COPY — CANONICAL: ✓ Copied to clipboard ──
