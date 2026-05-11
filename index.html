@@ -67,29 +67,23 @@
   .cosmic-bg::before {
     content: '';
     position: absolute;
-    top: -20%;
-    left: -10%;
-    width: 60%;
-    height: 60%;
+    top: -20%; left: -10%;
+    width: 60%; height: 60%;
     background: radial-gradient(ellipse, rgba(28,214,231,0.07) 0%, transparent 70%);
   }
 
   .cosmic-bg::after {
     content: '';
     position: absolute;
-    bottom: -10%;
-    right: -10%;
-    width: 55%;
-    height: 55%;
+    bottom: -10%; right: -10%;
+    width: 55%; height: 55%;
     background: radial-gradient(ellipse, rgba(246,43,209,0.07) 0%, transparent 70%);
   }
 
   .cosmic-mid {
     position: fixed;
-    top: 40%;
-    left: 30%;
-    width: 50%;
-    height: 50%;
+    top: 40%; left: 30%;
+    width: 50%; height: 50%;
     background: radial-gradient(ellipse, rgba(128,81,200,0.06) 0%, transparent 70%);
     pointer-events: none;
     z-index: 0;
@@ -106,8 +100,8 @@
   }
 
   @keyframes dotFade {
-    0% { opacity: 0.9; transform: translate(-50%,-50%) scale(1); }
-    100% { opacity: 0; transform: translate(-50%,-50%) scale(0.2); }
+    0%   { opacity: 0.9; transform: translate(-50%,-50%) scale(1); }
+    100% { opacity: 0;   transform: translate(-50%,-50%) scale(0.2); }
   }
 
   .cursor-sparkle {
@@ -120,7 +114,7 @@
   }
 
   @keyframes sparkleFade {
-    0% { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+    0%   { opacity: 1; transform: translate(-50%,-50%) scale(1); }
     100% { opacity: 0; transform: translate(-50%,-120%) scale(0.5); }
   }
 
@@ -311,8 +305,8 @@
   .section-block:nth-child(2) { animation-delay: 0.2s; }
   .section-block:nth-child(3) { animation-delay: 0.3s; }
   .section-block:nth-child(4) { animation-delay: 0.4s; }
-  .section-block:nth-child(5) { animation-delay: 0.5s; }
 
+  /* ── CANONICAL: section-label — consistent across all steps ── */
   .section-label {
     font-family: 'Inter', sans-serif;
     font-weight: 600;
@@ -321,6 +315,8 @@
     text-transform: uppercase;
     color: var(--cyan);
     margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
   }
 
   /* ── TEACHING COPY ── */
@@ -352,6 +348,7 @@
     box-shadow: 0 0 28px rgba(28,214,231,0.1);
   }
 
+  /* triple breathing rings — unique to Step 2 */
   .breathing-ring {
     width: 72px;
     height: 72px;
@@ -369,13 +366,13 @@
     animation: breathe 4s ease-in-out infinite;
   }
 
-  .breathing-ring span:nth-child(1) { width: 24px; height: 24px; animation-delay: 0s; border-color: rgba(28,214,231,0.7); }
-  .breathing-ring span:nth-child(2) { width: 44px; height: 44px; animation-delay: 0.4s; border-color: rgba(28,214,231,0.4); }
-  .breathing-ring span:nth-child(3) { width: 64px; height: 64px; animation-delay: 0.8s; border-color: rgba(28,214,231,0.15); }
+  .breathing-ring span:nth-child(1) { width:24px; height:24px; animation-delay:0s;   border-color:rgba(28,214,231,0.7);  }
+  .breathing-ring span:nth-child(2) { width:44px; height:44px; animation-delay:0.4s; border-color:rgba(28,214,231,0.4);  }
+  .breathing-ring span:nth-child(3) { width:64px; height:64px; animation-delay:0.8s; border-color:rgba(28,214,231,0.15); }
 
   @keyframes breathe {
     0%, 100% { transform: scale(0.92); opacity: 0.6; }
-    50% { transform: scale(1.06); opacity: 1; }
+    50%       { transform: scale(1.06); opacity: 1; }
   }
 
   .somatic-heading {
@@ -398,7 +395,7 @@
     margin: 0 auto;
   }
 
-  /* ── LAYER NAV ── */
+  /* ── LAYER NAV — underline tab style ── */
   .layer-nav {
     display: flex;
     gap: 4px;
@@ -432,7 +429,7 @@
   .reflection-layer { display: none; }
   .reflection-layer.active { display: block; }
 
-  /* ── REFLECTION CARD ── */
+  /* ── REFLECTION CARD — cyan left border ── */
   .reflection-card {
     background: var(--card);
     backdrop-filter: blur(20px);
@@ -493,15 +490,6 @@
 
   textarea::placeholder { color: rgba(248,245,255,0.25); font-weight: 300; }
 
-  .save-notice {
-    font-family: 'Inter', sans-serif;
-    font-weight: 300;
-    font-size: 11px;
-    color: rgba(248,245,255,0.35);
-    letter-spacing: 0.06em;
-    margin-top: 10px;
-  }
-
   /* ── LAYER CONTROLS ── */
   .layer-controls {
     display: flex;
@@ -550,6 +538,24 @@
 
   .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
 
+  /* ── CANONICAL: Copy My Responses — own block, feedback beneath ── */
+  .copy-wrap {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .copy-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
   .btn-copy-responses {
     font-family: 'Inter', sans-serif;
     font-weight: 600;
@@ -570,40 +576,22 @@
 
   .btn-copy-responses:hover { opacity: 0.85; transform: translateY(-1px); }
 
+  /* CANONICAL: copy feedback — always ✓ Copied to clipboard, under the button */
   .copy-confirm {
-    display: none;
     font-family: 'Inter', sans-serif;
     font-weight: 600;
     font-size: 10px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--cyan);
+    opacity: 0;
+    transition: opacity 0.3s;
+    min-height: 16px;
   }
 
-  .copy-confirm.show { display: block; }
+  .copy-confirm.show { opacity: 1; }
 
-  .btn-skool {
-    display: block;
-    width: calc(100% - 48px);
-    max-width: 720px;
-    margin: 24px auto 0;
-    padding: 18px 24px;
-    background: var(--gradient);
-    color: #fff;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    font-size: 12px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 30px;
-    transition: opacity 0.2s, transform 0.2s;
-  }
-
-  .btn-skool:hover { opacity: 0.85; transform: translateY(-1px); }
-
-  /* ── EXPORT ── */
+  /* ── EXPORT / SAVE YOUR WORK ── */
   .export-section {
     margin-top: 48px;
     background: var(--card);
@@ -631,10 +619,57 @@
     line-height: 1.6;
   }
 
+  /* ── CANONICAL: footer button stack ── */
+  .footer-stack {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .btn-next-step {
+    display: block;
+    width: 100%;
+    padding: 18px 24px;
+    background: var(--gradient);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: opacity 0.2s;
+  }
+
+  .btn-next-step:hover { opacity: 0.85; }
+
+  .btn-skool {
+    display: block;
+    width: 100%;
+    padding: 18px 24px;
+    background: rgba(255,255,255,0.04);
+    color: rgba(255,255,255,0.9);
+    border: 1px solid rgba(255,255,255,0.6);
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: all 0.2s;
+  }
+
+  .btn-skool:hover { background: rgba(255,255,255,0.09); border-color: #fff; }
+
   /* ── ANIMATIONS ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
   .copyright {
@@ -655,9 +690,9 @@
     .step-header { padding: 36px 0 24px; }
     .layer-controls { flex-direction: column; gap: 12px; }
     .layer-controls .btn-ghost,
-    .layer-controls .btn-primary,
-    .layer-controls .btn-done { width: 100%; text-align: center; justify-content: center; }
-    .step-complete-text { margin-left: 0; }
+    .layer-controls .btn-primary { width: 100%; text-align: center; justify-content: center; }
+    .copy-controls { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .btn-copy-responses { width: 100%; justify-content: center; }
     .export-section { padding: 24px 20px; }
   }
 </style>
@@ -686,7 +721,7 @@
         <span class="progress-count">Step 2 of 7</span>
       </div>
       <div class="progress-track">
-        <div class="progress-fill" style="width: 28.5%"></div>
+        <div class="progress-fill" style="width:28.5%"></div>
       </div>
     </div>
   </div>
@@ -704,7 +739,7 @@
       <p class="step-subtitle">Naming what has been running beneath the surface, so it no longer runs you.</p>
     </div>
 
-    <!-- TEACHING COPY -->
+    <!-- TEACHING COPY — CANONICAL: label always present -->
     <div class="section-block teaching-copy">
       <div class="section-label">The Teaching</div>
       <p>In Step 1 you acknowledged the reality you want to move away from. Here, you go one layer deeper: the habits, patterns, and beliefs that have been holding that old reality in place. These are the invisible anchors. Until you name them, they work on you quietly.</p>
@@ -712,6 +747,7 @@
       <p>Awareness is the first act of change. You cannot release what you have not yet seen. This step asks you to look clearly, without judgment, at the three layers that shape your current experience: what you do automatically, what you tell yourself, and the cycles you keep returning to.</p>
     </div>
 
+    <!-- SOMATIC BLOCK — triple breathing rings preserved -->
     <div class="section-block somatic-block">
       <div class="breathing-ring">
         <span></span><span></span><span></span>
@@ -720,14 +756,14 @@
       <p>Before you begin writing, take one slow breath and place a hand on your chest. Notice any tightness or heaviness that arises as you think about what you are about to name. You do not need to fix anything right now. You are simply becoming a witness to yourself.</p>
     </div>
 
-    <!-- REFLECTION -->
+    <!-- REFLECTION — CANONICAL: label always present -->
     <div class="section-block">
       <div class="section-label">Your Reflection</div>
 
       <div class="layer-nav">
-        <button class="layer-tab active" data-layer="habits" onclick="switchLayer('habits')">Habits</button>
-        <button class="layer-tab" data-layer="beliefs" onclick="switchLayer('beliefs')">Beliefs</button>
-        <button class="layer-tab" data-layer="patterns" onclick="switchLayer('patterns')">Patterns</button>
+        <button class="layer-tab active" data-layer="habits"   onclick="switchLayer('habits')">Habits</button>
+        <button class="layer-tab"        data-layer="beliefs"  onclick="switchLayer('beliefs')">Beliefs</button>
+        <button class="layer-tab"        data-layer="patterns" onclick="switchLayer('patterns')">Patterns</button>
       </div>
 
       <!-- HABITS -->
@@ -736,7 +772,6 @@
           <p class="reflection-prompt">Look at the life you have been living. Which habits have kept you anchored to the reality you named in Step 1, the ones you have maybe even tried to break before, but keep returning to? These do not need to be a long list. Focus on the ones that matter most.</p>
           <span class="starter-phrase">I am no longer a person who...</span>
           <textarea id="ta-habits" placeholder="Write your habits here. Let it be honest and specific, not a perfect list, just a true one." oninput="autosave('habits')"></textarea>
-          <div class="save-notice">This page does not save your responses. Save when done or transfer to your favourite journal.</div>
         </div>
         <div class="layer-controls">
           <div></div>
@@ -750,7 +785,6 @@
           <p class="reflection-prompt">What does the mind chatter say on repeat? Notice the thoughts that surface when something in your day goes wrong, the quiet verdict you deliver about yourself in those moments. The most important opinion you hold is the one you have of yourself.</p>
           <span class="starter-phrase">The beliefs I am ready to release are...</span>
           <textarea id="ta-beliefs" placeholder="Write what you tell yourself. The thoughts that come up automatically. The background narration you have heard so many times you stopped noticing it." oninput="autosave('beliefs')"></textarea>
-          <div class="save-notice">This page does not save your responses. Save when done or transfer to your favourite journal.</div>
         </div>
         <div class="layer-controls">
           <button class="btn-ghost" onclick="switchLayer('habits')">← Habits</button>
@@ -764,8 +798,8 @@
           <p class="reflection-prompt">A pattern is different from a habit. A habit is something you do automatically, while a pattern is a cycle of behavior or relating that carries emotional weight and keeps recurring even when you recognize it. Cycles of relationships, of giving away your power, of self-sabotage at the edge of something good. What patterns are you ready to identify?</p>
           <span class="starter-phrase">I am a person who is no longer going to repeat the pattern of...</span>
           <textarea id="ta-patterns" placeholder="Write the cycles you recognize. The ones that carry emotional weight. This is not about blame. It is about seeing clearly so you can choose differently." oninput="autosave('patterns')"></textarea>
-          <div class="save-notice">This page does not save your responses. Save when done or transfer to your favourite journal.</div>
         </div>
+        <!-- Back on left, Copy on right — feedback sits beneath the whole row, right-aligned -->
         <div class="layer-controls">
           <button class="btn-ghost" onclick="switchLayer('beliefs')">← Beliefs</button>
           <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
@@ -778,24 +812,25 @@
         </div>
       </div>
 
-    </div>
+    </div><!-- /section-block reflection -->
 
-    <!-- SAVE YOUR WORK -->
+    <!-- SAVE YOUR WORK — no button inside -->
     <div class="export-section">
       <h3 class="save-title">Save Your Work</h3>
       <p class="save-description">Your responses are not saved automatically. Use the Copy My Responses button above to copy them, then paste into your notes app on your phone or computer.</p>
     </div>
 
-    <!-- SKOOL BUTTON -->
-    <a href="https://www.skool.com/timeline-jumpers-9976/classroom" class="btn-skool">
-      Take Me Back to Skool
-    </a>
+    <!-- CANONICAL: footer button stack -->
+    <div class="footer-stack">
+      <a href="https://ceydaseren.github.io/timelinejumpingstep3/" class="btn-next-step">Go to Next Step</a>
+      <a href="https://www.skool.com/timeline-jumpers-9976/classroom" class="btn-skool">Take Me Back to Skool</a>
+    </div>
 
-  </div>
+  </div><!-- /main-content -->
 
   <div class="copyright">© 2026 Ceyda Seren. All rights reserved.</div>
 
-</div>
+</div><!-- /page-wrap -->
 
 <script>
   // ── STARS ──
@@ -806,8 +841,7 @@
     const size = Math.random() * 2 + 0.5;
     s.style.cssText = `
       width:${size}px; height:${size}px;
-      top:${Math.random()*100}%;
-      left:${Math.random()*100}%;
+      top:${Math.random()*100}%; left:${Math.random()*100}%;
       --dur:${2+Math.random()*4}s;
       --delay:${Math.random()*4}s;
       --op:${0.3+Math.random()*0.6};
@@ -858,44 +892,36 @@
     document.querySelectorAll('.layer-tab').forEach(t => t.classList.remove('active'));
     document.getElementById('layer-' + layerId).classList.add('active');
     document.querySelector('[data-layer=' + layerId + ']').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // ── COPY ──
+  // ── COPY — CANONICAL: ✓ Copied to clipboard ──
   function copyResponses() {
-    const habits = document.getElementById('ta-habits').value.trim();
-    const beliefs = document.getElementById('ta-beliefs').value.trim();
+    const habits   = document.getElementById('ta-habits').value.trim();
+    const beliefs  = document.getElementById('ta-beliefs').value.trim();
     const patterns = document.getElementById('ta-patterns').value.trim();
 
     const compiled = [
       'TIMELINE JUMPERS — Step 2: Identify Habits, Patterns & Beliefs',
-      '-'.repeat(50),
-      '',
-      'HABITS',
-      'I am no longer a person who...',
-      habits || '(not yet written)',
-      '',
-      'BELIEFS',
-      'The beliefs I am ready to release are...',
-      beliefs || '(not yet written)',
-      '',
-      'PATTERNS',
-      'I am a person who is no longer going to repeat the pattern of...',
+      '-'.repeat(50), '',
+      'HABITS', 'I am no longer a person who...',
+      habits   || '(not yet written)', '',
+      'BELIEFS', 'The beliefs I am ready to release are...',
+      beliefs  || '(not yet written)', '',
+      'PATTERNS', 'I am a person who is no longer going to repeat the pattern of...',
       patterns || '(not yet written)',
     ].join('\n');
 
-    const el = document.createElement('textarea');
-    el.value = compiled;
-    el.style.position = 'fixed';
-    el.style.opacity = '0';
-    document.body.appendChild(el);
-    el.focus();
-    el.select();
-    document.execCommand('copy');
-    document.body.removeChild(el);
-
     const confirm = document.getElementById('copy-confirm');
-    confirm.classList.add('show');
-    setTimeout(() => confirm.classList.remove('show'), 2400);
+    const show = () => { confirm.classList.add('show'); setTimeout(() => confirm.classList.remove('show'), 2500); };
+
+    navigator.clipboard.writeText(compiled).then(show).catch(() => {
+      const el = document.createElement('textarea');
+      el.value = compiled; el.style.cssText = 'position:fixed;opacity:0';
+      document.body.appendChild(el); el.select();
+      document.execCommand('copy'); document.body.removeChild(el);
+      show();
+    });
   }
 
   loadSaved();
