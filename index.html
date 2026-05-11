@@ -550,7 +550,7 @@
 
   .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
 
-  .btn-done {
+  .btn-copy-responses {
     font-family: 'Inter', sans-serif;
     font-weight: 600;
     font-size: 11px;
@@ -563,23 +563,45 @@
     border-radius: 30px;
     cursor: pointer;
     transition: opacity 0.2s, transform 0.2s;
-    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
   }
 
-  .btn-done:hover { opacity: 0.85; transform: translateY(-1px); }
+  .btn-copy-responses:hover { opacity: 0.85; transform: translateY(-1px); }
 
-  .step-complete-text {
+  .copy-confirm {
     display: none;
     font-family: 'Inter', sans-serif;
     font-weight: 600;
-    font-size: 11px;
-    letter-spacing: 0.18em;
+    font-size: 10px;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--cyan);
-    align-items: center;
-    gap: 7px;
-    margin-left: auto;
   }
+
+  .copy-confirm.show { display: block; }
+
+  .btn-skool {
+    display: block;
+    width: calc(100% - 48px);
+    max-width: 720px;
+    margin: 24px auto 0;
+    padding: 18px 24px;
+    background: var(--gradient);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+
+  .btn-skool:hover { opacity: 0.85; transform: translateY(-1px); }
 
   /* ── EXPORT ── */
   .export-section {
@@ -606,53 +628,8 @@
     font-weight: 300;
     font-size: 13px;
     color: var(--text-sec);
-    margin-bottom: 20px;
     line-height: 1.6;
   }
-
-  .btn-export-dark {
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    font-size: 11px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    background: var(--gradient);
-    border: none;
-    color: #fff;
-    padding: 14px 28px;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: opacity 0.2s, transform 0.2s;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .btn-export-dark:hover { opacity: 0.85; transform: translateY(-1px); }
-
-  /* ── TOAST ── */
-  .copy-toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%) translateY(10px);
-    background: var(--mid);
-    border: 1px solid var(--glow-border);
-    color: var(--cyan);
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 12px 24px;
-    border-radius: 30px;
-    opacity: 0;
-    transition: all 0.3s;
-    pointer-events: none;
-    z-index: 100;
-  }
-
-  .copy-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
   /* ── ANIMATIONS ── */
   @keyframes fadeUp {
@@ -791,33 +768,34 @@
         </div>
         <div class="layer-controls">
           <button class="btn-ghost" onclick="switchLayer('beliefs')">← Beliefs</button>
-          <button class="btn-done" id="done-patterns" onclick="markDone()">Done</button>
-          <span class="step-complete-text" id="step-complete-text">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Step Complete
-          </span>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+            <button class="btn-copy-responses" onclick="copyResponses()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Copy My Responses
+            </button>
+            <span class="copy-confirm" id="copy-confirm">✓ Copied to clipboard</span>
+          </div>
         </div>
       </div>
 
     </div>
 
-    <!-- EXPORT -->
+    <!-- SAVE YOUR WORK -->
     <div class="export-section">
       <h3 class="save-title">Save Your Work</h3>
-      <p class="save-description">Your responses are not saved automatically. Click below to copy them, then paste into your notes app on your phone or computer.</p>
-      <button class="btn-export-dark" onclick="copyResponses()">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Copy My Responses
-      </button>
+      <p class="save-description">Your responses are not saved automatically. Use the Copy My Responses button above to copy them, then paste into your notes app on your phone or computer.</p>
     </div>
+
+    <!-- SKOOL BUTTON -->
+    <a href="https://www.skool.com/timeline-jumpers-9976/classroom/2a4e0ab5" class="btn-skool">
+      Take Me Back to Skool
+    </a>
 
   </div>
 
   <div class="copyright">© 2026 Ceyda Seren. All rights reserved.</div>
 
 </div>
-
-<div class="copy-toast" id="toast">Responses copied</div>
 
 <script>
   // ── STARS ──
@@ -872,7 +850,6 @@
       const saved = sessionStorage.getItem('tj_step2_' + key);
       if (saved) document.getElementById('ta-' + key).value = saved;
     });
-    sessionStorage.removeItem('tj_step2_patterns_complete');
   }
 
   // ── LAYER SWITCHING ──
@@ -881,13 +858,6 @@
     document.querySelectorAll('.layer-tab').forEach(t => t.classList.remove('active'));
     document.getElementById('layer-' + layerId).classList.add('active');
     document.querySelector('[data-layer=' + layerId + ']').classList.add('active');
-  }
-
-  // ── DONE ──
-  function markDone() {
-    document.getElementById('done-patterns').style.display = 'none';
-    document.getElementById('step-complete-text').style.display = 'inline-flex';
-    sessionStorage.setItem('tj_step2_patterns_complete', 'true');
   }
 
   // ── COPY ──
@@ -923,9 +893,9 @@
     document.execCommand('copy');
     document.body.removeChild(el);
 
-    const toast = document.getElementById('toast');
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2400);
+    const confirm = document.getElementById('copy-confirm');
+    confirm.classList.add('show');
+    setTimeout(() => confirm.classList.remove('show'), 2400);
   }
 
   loadSaved();
